@@ -1,0 +1,1324 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="horseClubEFModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="chat">
+          <Key>
+            <PropertyRef Name="chat_num" />
+          </Key>
+          <Property Name="chat_num" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dateTime" Type="datetime" />
+          <Property Name="dateStr" Type="nvarchar" MaxLength="50" />
+          <Property Name="timeStr" Type="nvarchar" MaxLength="50" />
+          <Property Name="last_message" Type="nvarchar(max)" />
+          <Property Name="user_id1" Type="nvarchar" MaxLength="50" />
+          <Property Name="user_id2" Type="nvarchar" MaxLength="50" />
+          <Property Name="last_message_sent_by" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="horse">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="gender" Type="nvarchar" MaxLength="4" />
+          <Property Name="size" Type="nvarchar" MaxLength="50" />
+          <Property Name="temper" Type="nvarchar" MaxLength="50" />
+          <Property Name="required_rank" Type="int" />
+          <Property Name="max_weight" Type="int" />
+          <Property Name="min_weight" Type="int" />
+          <Property Name="max_height" Type="float" />
+          <Property Name="min_height" Type="float" />
+          <Property Name="therapeutic_riding" Type="bit" />
+          <Property Name="can_jump" Type="bit" />
+          <Property Name="is_qualified" Type="bit" />
+          <Property Name="is_active" Type="bit" />
+        </EntityType>
+        <EntityType Name="instructor_feedback">
+          <Key>
+            <PropertyRef Name="feedback_id" />
+          </Key>
+          <Property Name="feedback_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="lesson_id" Type="int" />
+          <Property Name="q1" Type="int" />
+          <Property Name="q2" Type="int" />
+          <Property Name="q3" Type="int" />
+          <Property Name="q4" Type="int" />
+          <Property Name="score" Type="float" />
+        </EntityType>
+        <EntityType Name="lesson">
+          <Key>
+            <PropertyRef Name="lesson_id" />
+          </Key>
+          <Property Name="lesson_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="start_time" Type="time" Precision="7" Nullable="false" />
+          <Property Name="rider_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="end_time" Type="time" Precision="7" />
+          <Property Name="horse_id" Type="int" />
+          <Property Name="instructor_id" Type="nvarchar" MaxLength="50" />
+          <Property Name="field" Type="nvarchar" MaxLength="20" />
+          <Property Name="lesson_type" Type="nvarchar" MaxLength="50" />
+          <Property Name="price" Type="int" />
+          <Property Name="funding_source" Type="nvarchar" MaxLength="50" />
+          <Property Name="charge_type" Type="nvarchar" MaxLength="50" />
+          <Property Name="was_present" Type="nvarchar" MaxLength="50" />
+          <Property Name="comments" Type="nvarchar" MaxLength="200" />
+          <Property Name="match_rank" Type="float" />
+        </EntityType>
+        <EntityType Name="match_criteria">
+          <Key>
+            <PropertyRef Name="criterion_id" />
+          </Key>
+          <Property Name="criterion_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="criterion_name" Type="nvarchar(max)" />
+          <Property Name="criterion_description" Type="nvarchar(max)" />
+          <Property Name="last_update" Type="datetime" />
+          <Property Name="criterion_weight" Type="float" />
+          <Property Name="min_weight" Type="float" />
+          <Property Name="max_weight" Type="float" />
+        </EntityType>
+        <EntityType Name="notification">
+          <Key>
+            <PropertyRef Name="notification_id" />
+          </Key>
+          <Property Name="notification_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="nvarchar" MaxLength="50" />
+          <Property Name="title" Type="nvarchar" MaxLength="50" />
+          <Property Name="text" Type="nvarchar(max)" />
+          <Property Name="dateStr" Type="nvarchar" MaxLength="50" />
+          <Property Name="timeStr" Type="nvarchar" MaxLength="50" />
+          <Property Name="dateTime" Type="datetime" />
+          <Property Name="lesson_id" Type="int" />
+          <Property Name="was_sent" Type="bit" />
+        </EntityType>
+        <EntityType Name="parent">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="first_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="last_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="gender" Type="nvarchar" MaxLength="4" />
+          <Property Name="phone_number" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="parent_of_rider">
+          <Key>
+            <PropertyRef Name="rider_id" />
+            <PropertyRef Name="parent_id" />
+          </Key>
+          <Property Name="rider_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="parent_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="regular_lesson">
+          <Key>
+            <PropertyRef Name="lesson_id" />
+          </Key>
+          <Property Name="lesson_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="day" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="start_time" Type="time" Precision="7" Nullable="false" />
+          <Property Name="end_time" Type="time" Precision="7" />
+          <Property Name="lesson_type" Type="nvarchar" MaxLength="50" />
+          <Property Name="price" Type="int" />
+          <Property Name="funding_source" Type="nvarchar" MaxLength="50" />
+          <Property Name="rider_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rider">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="weight" Type="int" />
+          <Property Name="height" Type="float" />
+          <Property Name="riding_rank" Type="int" />
+          <Property Name="riding_type" Type="nvarchar" MaxLength="50" />
+          <Property Name="starting_date" Type="date" />
+          <Property Name="instructor_id" Type="nvarchar" MaxLength="50" />
+          <Property Name="horse_id" Type="int" />
+          <Property Name="isActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="rider_feedback">
+          <Key>
+            <PropertyRef Name="feedback_id" />
+          </Key>
+          <Property Name="feedback_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="lesson_id" Type="int" />
+          <Property Name="q1" Type="int" />
+          <Property Name="q2" Type="int" />
+          <Property Name="q3" Type="int" />
+          <Property Name="q4" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="trial_lesson">
+          <Key>
+            <PropertyRef Name="lesson_id" />
+          </Key>
+          <Property Name="lesson_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="start_time" Type="time" Precision="7" />
+          <Property Name="end_time" Type="time" Precision="7" />
+          <Property Name="visitor_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="horse_id" Type="int" />
+          <Property Name="instructor_id" Type="nvarchar" MaxLength="50" />
+          <Property Name="field" Type="nvarchar" MaxLength="20" />
+          <Property Name="price" Type="int" />
+          <Property Name="funding_source" Type="nvarchar" MaxLength="50" />
+          <Property Name="charge_type" Type="nvarchar" MaxLength="50" />
+          <Property Name="was_present" Type="nvarchar" MaxLength="50" />
+          <Property Name="comments" Type="nvarchar" MaxLength="200" />
+          <Property Name="lesson_type" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="first_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="last_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="gender" Type="nvarchar" MaxLength="4" />
+          <Property Name="date_of_birth" Type="date" />
+          <Property Name="phone_number" Type="nvarchar" MaxLength="50" />
+          <Property Name="city" Type="nvarchar" MaxLength="50" />
+          <Property Name="address" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+          <Property Name="isAllowed" Type="bit" Nullable="false" />
+          <Property Name="user_type" Type="nvarchar" MaxLength="30" />
+          <Property Name="token" Type="nvarchar(max)" />
+          <Property Name="profileImg" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="visitor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="first_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="last_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="gender" Type="nvarchar" MaxLength="4" />
+          <Property Name="date_of_birth" Type="date" />
+          <Property Name="phone_number" Type="nvarchar" MaxLength="50" />
+          <Property Name="city" Type="nvarchar" MaxLength="50" />
+          <Property Name="address" Type="nvarchar" MaxLength="50" />
+          <Property Name="height" Type="float" />
+          <Property Name="weight" Type="int" />
+          <Property Name="comments" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="worker">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="starting_date" Type="date" />
+        </EntityType>
+        <Association Name="FK__chat__user_id1__73BA3083">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="chat" Type="Self.chat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="chat">
+              <PropertyRef Name="user_id1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__chat__user_id2__72C60C4A">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="chat" Type="Self.chat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="chat">
+              <PropertyRef Name="user_id2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__instructo__lesso__05D8E0BE">
+          <End Role="lesson" Type="Self.lesson" Multiplicity="0..1" />
+          <End Role="instructor_feedback" Type="Self.instructor_feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lesson">
+              <PropertyRef Name="lesson_id" />
+            </Principal>
+            <Dependent Role="instructor_feedback">
+              <PropertyRef Name="lesson_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__lesson__horse_id__571DF1D5">
+          <End Role="horse" Type="Self.horse" Multiplicity="0..1" />
+          <End Role="lesson" Type="Self.lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="horse">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="lesson">
+              <PropertyRef Name="horse_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__lesson__instruct__5812160E">
+          <End Role="worker" Type="Self.worker" Multiplicity="0..1" />
+          <End Role="lesson" Type="Self.lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="worker">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="lesson">
+              <PropertyRef Name="instructor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__lesson__rider_id__09A971A2">
+          <End Role="rider" Type="Self.rider" Multiplicity="1" />
+          <End Role="lesson" Type="Self.lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rider">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="lesson">
+              <PropertyRef Name="rider_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__notificat__lesso__02FC7413">
+          <End Role="lesson" Type="Self.lesson" Multiplicity="0..1" />
+          <End Role="notification" Type="Self.notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lesson">
+              <PropertyRef Name="lesson_id" />
+            </Principal>
+            <Dependent Role="notification">
+              <PropertyRef Name="lesson_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__notificat__user___02084FDA">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="notification" Type="Self.notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="notification">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__regular_l__rider__5EBF139D">
+          <End Role="rider" Type="Self.rider" Multiplicity="1" />
+          <End Role="regular_lesson" Type="Self.regular_lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rider">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="regular_lesson">
+              <PropertyRef Name="rider_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__rider__horse_id__33D4B598">
+          <End Role="horse" Type="Self.horse" Multiplicity="0..1" />
+          <End Role="rider" Type="Self.rider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="horse">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="rider">
+              <PropertyRef Name="horse_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__rider__instructo__34C8D9D1">
+          <End Role="worker" Type="Self.worker" Multiplicity="0..1" />
+          <End Role="rider" Type="Self.rider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="worker">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="rider">
+              <PropertyRef Name="instructor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__rider_fee__lesso__06CD04F7">
+          <End Role="lesson" Type="Self.lesson" Multiplicity="0..1" />
+          <End Role="rider_feedback" Type="Self.rider_feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lesson">
+              <PropertyRef Name="lesson_id" />
+            </Principal>
+            <Dependent Role="rider_feedback">
+              <PropertyRef Name="lesson_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__riders__id__22AA2996">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="rider" Type="Self.rider" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="rider">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__trial_les__horse__619B8048">
+          <End Role="horse" Type="Self.horse" Multiplicity="0..1" />
+          <End Role="trial_lesson" Type="Self.trial_lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="horse">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="trial_lesson">
+              <PropertyRef Name="horse_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__trial_les__instr__628FA481">
+          <End Role="worker" Type="Self.worker" Multiplicity="0..1" />
+          <End Role="trial_lesson" Type="Self.trial_lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="worker">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="trial_lesson">
+              <PropertyRef Name="instructor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__trial_les__visit__6383C8BA">
+          <End Role="visitor" Type="Self.visitor" Multiplicity="1" />
+          <End Role="trial_lesson" Type="Self.trial_lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="visitor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="trial_lesson">
+              <PropertyRef Name="visitor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__workers__id__2A4B4B5E">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="worker" Type="Self.worker" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="worker">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_parent">
+          <End Role="parent" Type="Self.parent" Multiplicity="1" />
+          <End Role="parent_of_rider" Type="Self.parent_of_rider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="parent">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="parent_of_rider">
+              <PropertyRef Name="parent_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_rider">
+          <End Role="rider" Type="Self.rider" Multiplicity="1" />
+          <End Role="parent_of_rider" Type="Self.parent_of_rider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rider">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="parent_of_rider">
+              <PropertyRef Name="rider_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="horseClubEFModelStoreContainer">
+          <EntitySet Name="chat" EntityType="Self.chat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="horse" EntityType="Self.horse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="instructor_feedback" EntityType="Self.instructor_feedback" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="lesson" EntityType="Self.lesson" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="match_criteria" EntityType="Self.match_criteria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="notification" EntityType="Self.notification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="parent" EntityType="Self.parent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="parent_of_rider" EntityType="Self.parent_of_rider" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="regular_lesson" EntityType="Self.regular_lesson" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="rider" EntityType="Self.rider" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="rider_feedback" EntityType="Self.rider_feedback" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="trial_lesson" EntityType="Self.trial_lesson" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="visitor" EntityType="Self.visitor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="worker" EntityType="Self.worker" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__chat__user_id1__73BA3083" Association="Self.FK__chat__user_id1__73BA3083">
+            <End Role="user" EntitySet="user" />
+            <End Role="chat" EntitySet="chat" />
+          </AssociationSet>
+          <AssociationSet Name="FK__chat__user_id2__72C60C4A" Association="Self.FK__chat__user_id2__72C60C4A">
+            <End Role="user" EntitySet="user" />
+            <End Role="chat" EntitySet="chat" />
+          </AssociationSet>
+          <AssociationSet Name="FK__instructo__lesso__05D8E0BE" Association="Self.FK__instructo__lesso__05D8E0BE">
+            <End Role="lesson" EntitySet="lesson" />
+            <End Role="instructor_feedback" EntitySet="instructor_feedback" />
+          </AssociationSet>
+          <AssociationSet Name="FK__lesson__horse_id__571DF1D5" Association="Self.FK__lesson__horse_id__571DF1D5">
+            <End Role="horse" EntitySet="horse" />
+            <End Role="lesson" EntitySet="lesson" />
+          </AssociationSet>
+          <AssociationSet Name="FK__lesson__instruct__5812160E" Association="Self.FK__lesson__instruct__5812160E">
+            <End Role="worker" EntitySet="worker" />
+            <End Role="lesson" EntitySet="lesson" />
+          </AssociationSet>
+          <AssociationSet Name="FK__lesson__rider_id__09A971A2" Association="Self.FK__lesson__rider_id__09A971A2">
+            <End Role="rider" EntitySet="rider" />
+            <End Role="lesson" EntitySet="lesson" />
+          </AssociationSet>
+          <AssociationSet Name="FK__notificat__lesso__02FC7413" Association="Self.FK__notificat__lesso__02FC7413">
+            <End Role="lesson" EntitySet="lesson" />
+            <End Role="notification" EntitySet="notification" />
+          </AssociationSet>
+          <AssociationSet Name="FK__notificat__user___02084FDA" Association="Self.FK__notificat__user___02084FDA">
+            <End Role="user" EntitySet="user" />
+            <End Role="notification" EntitySet="notification" />
+          </AssociationSet>
+          <AssociationSet Name="FK__regular_l__rider__5EBF139D" Association="Self.FK__regular_l__rider__5EBF139D">
+            <End Role="rider" EntitySet="rider" />
+            <End Role="regular_lesson" EntitySet="regular_lesson" />
+          </AssociationSet>
+          <AssociationSet Name="FK__rider__horse_id__33D4B598" Association="Self.FK__rider__horse_id__33D4B598">
+            <End Role="horse" EntitySet="horse" />
+            <End Role="rider" EntitySet="rider" />
+          </AssociationSet>
+          <AssociationSet Name="FK__rider__instructo__34C8D9D1" Association="Self.FK__rider__instructo__34C8D9D1">
+            <End Role="worker" EntitySet="worker" />
+            <End Role="rider" EntitySet="rider" />
+          </AssociationSet>
+          <AssociationSet Name="FK__rider_fee__lesso__06CD04F7" Association="Self.FK__rider_fee__lesso__06CD04F7">
+            <End Role="lesson" EntitySet="lesson" />
+            <End Role="rider_feedback" EntitySet="rider_feedback" />
+          </AssociationSet>
+          <AssociationSet Name="FK__riders__id__22AA2996" Association="Self.FK__riders__id__22AA2996">
+            <End Role="user" EntitySet="user" />
+            <End Role="rider" EntitySet="rider" />
+          </AssociationSet>
+          <AssociationSet Name="FK__trial_les__horse__619B8048" Association="Self.FK__trial_les__horse__619B8048">
+            <End Role="horse" EntitySet="horse" />
+            <End Role="trial_lesson" EntitySet="trial_lesson" />
+          </AssociationSet>
+          <AssociationSet Name="FK__trial_les__instr__628FA481" Association="Self.FK__trial_les__instr__628FA481">
+            <End Role="worker" EntitySet="worker" />
+            <End Role="trial_lesson" EntitySet="trial_lesson" />
+          </AssociationSet>
+          <AssociationSet Name="FK__trial_les__visit__6383C8BA" Association="Self.FK__trial_les__visit__6383C8BA">
+            <End Role="visitor" EntitySet="visitor" />
+            <End Role="trial_lesson" EntitySet="trial_lesson" />
+          </AssociationSet>
+          <AssociationSet Name="FK__workers__id__2A4B4B5E" Association="Self.FK__workers__id__2A4B4B5E">
+            <End Role="user" EntitySet="user" />
+            <End Role="worker" EntitySet="worker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_parent" Association="Self.FK_parent">
+            <End Role="parent" EntitySet="parent" />
+            <End Role="parent_of_rider" EntitySet="parent_of_rider" />
+          </AssociationSet>
+          <AssociationSet Name="FK_rider" Association="Self.FK_rider">
+            <End Role="rider" EntitySet="rider" />
+            <End Role="parent_of_rider" EntitySet="parent_of_rider" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="horseClubEFModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="horse">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="gender" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="size" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="temper" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="required_rank" Type="Int32" />
+          <Property Name="max_weight" Type="Int32" />
+          <Property Name="min_weight" Type="Int32" />
+          <Property Name="max_height" Type="Double" />
+          <Property Name="min_height" Type="Double" />
+          <Property Name="therapeutic_riding" Type="Boolean" />
+          <Property Name="can_jump" Type="Boolean" />
+          <NavigationProperty Name="riders" Relationship="Self.FK__rider__horse_id__33D4B598" FromRole="horse" ToRole="rider" />
+          <NavigationProperty Name="trial_lesson" Relationship="Self.FK__trial_les__horse__25869641" FromRole="horse" ToRole="trial_lesson" />
+          <Property Name="is_qualified" Type="Boolean" />
+          <Property Name="is_active" Type="Boolean" />
+          <NavigationProperty Name="lessons" Relationship="horseClubEFModel.FK__lesson__horse_id__571DF1D5" FromRole="horse" ToRole="lesson" />
+        </EntityType>
+        <EntityType Name="parent">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="gender" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="phone_number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="riders" Relationship="Self.parent_of_rider" FromRole="parent" ToRole="rider" />
+        </EntityType>
+        <EntityType Name="rider">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="weight" Type="Int32" />
+          <Property Name="height" Type="Double" />
+          <Property Name="riding_rank" Type="Int32" />
+          <Property Name="riding_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="starting_date" Type="DateTime" Precision="0" />
+          <Property Name="instructor_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="horse_id" Type="Int32" />
+          <NavigationProperty Name="horse" Relationship="Self.FK__rider__horse_id__33D4B598" FromRole="rider" ToRole="horse" />
+          <NavigationProperty Name="parents" Relationship="Self.parent_of_rider" FromRole="rider" ToRole="parent" />
+          <NavigationProperty Name="worker" Relationship="horseClubEFModel.FK__rider__instructo__34C8D9D1" FromRole="rider" ToRole="worker" />
+          <NavigationProperty Name="regular_lesson" Relationship="horseClubEFModel.FK__regular_l__rider__5EBF139D" FromRole="rider" ToRole="regular_lesson" />
+          <Property Name="isActive" Type="Boolean" />
+          <NavigationProperty Name="user" Relationship="horseClubEFModel.FK__riders__id__22AA2996" FromRole="rider" ToRole="user" />
+          <NavigationProperty Name="lessons" Relationship="horseClubEFModel.FK__lesson__rider_id__09A971A2" FromRole="rider" ToRole="lesson" />
+        </EntityType>
+        <EntityType Name="trial_lesson">
+          <Key>
+            <PropertyRef Name="lesson_id" />
+          </Key>
+          <Property Name="date" Type="DateTime" Precision="0" Nullable="false" />
+          <Property Name="visitor_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="horse_id" Type="Int32" />
+          <Property Name="instructor_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="field" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="Int32" />
+          <Property Name="funding_source" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="charge_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="was_present" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="comments" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="horse" Relationship="Self.FK__trial_les__horse__25869641" FromRole="trial_lesson" ToRole="horse" />
+          <NavigationProperty Name="worker" Relationship="Self.FK__trial_les__instr__267ABA7A" FromRole="trial_lesson" ToRole="worker" />
+          <NavigationProperty Name="visitor" Relationship="Self.FK__trial_les__visit__276EDEB3" FromRole="trial_lesson" ToRole="visitor" />
+          <Property Name="lesson_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="start_time" Type="Time" Precision="7" />
+          <Property Name="end_time" Type="Time" Precision="7" />
+          <Property Name="lesson_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="visitor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="gender" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="date_of_birth" Type="DateTime" Precision="0" />
+          <Property Name="phone_number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="height" Type="Double" />
+          <Property Name="weight" Type="Int32" />
+          <Property Name="comments" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="trial_lesson" Relationship="Self.FK__trial_les__visit__276EDEB3" FromRole="visitor" ToRole="trial_lesson" />
+        </EntityType>
+        <EntityType Name="worker">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="starting_date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="trial_lesson" Relationship="Self.FK__trial_les__instr__267ABA7A" FromRole="worker" ToRole="trial_lesson" />
+          <NavigationProperty Name="riders" Relationship="horseClubEFModel.FK__rider__instructo__34C8D9D1" FromRole="worker" ToRole="rider" />
+          <NavigationProperty Name="user" Relationship="horseClubEFModel.FK__workers__id__2A4B4B5E" FromRole="worker" ToRole="user" />
+          <NavigationProperty Name="lessons" Relationship="horseClubEFModel.FK__lesson__instruct__5812160E" FromRole="worker" ToRole="lesson" />
+        </EntityType>
+        <Association Name="FK__rider__horse_id__33D4B598">
+          <End Role="horse" Type="Self.horse" Multiplicity="0..1" />
+          <End Role="rider" Type="Self.rider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="horse">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="rider">
+              <PropertyRef Name="horse_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__trial_les__horse__25869641">
+          <End Role="horse" Type="Self.horse" Multiplicity="0..1" />
+          <End Role="trial_lesson" Type="Self.trial_lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="horse">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="trial_lesson">
+              <PropertyRef Name="horse_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__trial_les__instr__267ABA7A">
+          <End Role="worker" Type="Self.worker" Multiplicity="0..1" />
+          <End Role="trial_lesson" Type="Self.trial_lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="worker">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="trial_lesson">
+              <PropertyRef Name="instructor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__trial_les__visit__276EDEB3">
+          <End Role="visitor" Type="Self.visitor" Multiplicity="1" />
+          <End Role="trial_lesson" Type="Self.trial_lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="visitor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="trial_lesson">
+              <PropertyRef Name="visitor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="parent_of_rider">
+          <End Role="parent" Type="Self.parent" Multiplicity="*" />
+          <End Role="rider" Type="Self.rider" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="horseClubDbContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="horses" EntityType="Self.horse" />
+          <EntitySet Name="parents" EntityType="Self.parent" />
+          <EntitySet Name="riders" EntityType="Self.rider" />
+          <EntitySet Name="trial_lesson" EntityType="Self.trial_lesson" />
+          <EntitySet Name="visitors" EntityType="Self.visitor" />
+          <EntitySet Name="workers" EntityType="Self.worker" />
+          <AssociationSet Name="FK__rider__horse_id__33D4B598" Association="Self.FK__rider__horse_id__33D4B598">
+            <End Role="horse" EntitySet="horses" />
+            <End Role="rider" EntitySet="riders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__trial_les__horse__25869641" Association="Self.FK__trial_les__horse__25869641">
+            <End Role="horse" EntitySet="horses" />
+            <End Role="trial_lesson" EntitySet="trial_lesson" />
+          </AssociationSet>
+          <AssociationSet Name="FK__trial_les__instr__267ABA7A" Association="Self.FK__trial_les__instr__267ABA7A">
+            <End Role="worker" EntitySet="workers" />
+            <End Role="trial_lesson" EntitySet="trial_lesson" />
+          </AssociationSet>
+          <AssociationSet Name="FK__trial_les__visit__276EDEB3" Association="Self.FK__trial_les__visit__276EDEB3">
+            <End Role="visitor" EntitySet="visitors" />
+            <End Role="trial_lesson" EntitySet="trial_lesson" />
+          </AssociationSet>
+          <AssociationSet Name="parent_of_rider" Association="Self.parent_of_rider">
+            <End Role="parent" EntitySet="parents" />
+            <End Role="rider" EntitySet="riders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__rider__instructo__34C8D9D1" Association="horseClubEFModel.FK__rider__instructo__34C8D9D1">
+            <End Role="worker" EntitySet="workers" />
+            <End Role="rider" EntitySet="riders" />
+          </AssociationSet>
+          <EntitySet Name="regular_lesson" EntityType="horseClubEFModel.regular_lesson" />
+          <AssociationSet Name="FK__regular_l__rider__5EBF139D" Association="horseClubEFModel.FK__regular_l__rider__5EBF139D">
+            <End Role="rider" EntitySet="riders" />
+            <End Role="regular_lesson" EntitySet="regular_lesson" />
+          </AssociationSet>
+          <EntitySet Name="chats" EntityType="horseClubEFModel.chat" />
+          <EntitySet Name="users" EntityType="horseClubEFModel.user" />
+          <AssociationSet Name="FK__chat__user_id1__73BA3083" Association="horseClubEFModel.FK__chat__user_id1__73BA3083">
+            <End Role="user" EntitySet="users" />
+            <End Role="chat" EntitySet="chats" />
+          </AssociationSet>
+          <AssociationSet Name="FK__chat__user_id2__72C60C4A" Association="horseClubEFModel.FK__chat__user_id2__72C60C4A">
+            <End Role="user" EntitySet="users" />
+            <End Role="chat" EntitySet="chats" />
+          </AssociationSet>
+          <AssociationSet Name="FK__riders__id__22AA2996" Association="horseClubEFModel.FK__riders__id__22AA2996">
+            <End Role="user" EntitySet="users" />
+            <End Role="rider" EntitySet="riders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__workers__id__2A4B4B5E" Association="horseClubEFModel.FK__workers__id__2A4B4B5E">
+            <End Role="user" EntitySet="users" />
+            <End Role="worker" EntitySet="workers" />
+          </AssociationSet>
+          <EntitySet Name="notifications" EntityType="horseClubEFModel.notification" />
+          <AssociationSet Name="FK__notificat__user___02084FDA" Association="horseClubEFModel.FK__notificat__user___02084FDA">
+            <End Role="user" EntitySet="users" />
+            <End Role="notification" EntitySet="notifications" />
+          </AssociationSet>
+          <EntitySet Name="lessons" EntityType="horseClubEFModel.lesson" />
+          <AssociationSet Name="FK__lesson__horse_id__571DF1D5" Association="horseClubEFModel.FK__lesson__horse_id__571DF1D5">
+            <End Role="horse" EntitySet="horses" />
+            <End Role="lesson" EntitySet="lessons" />
+          </AssociationSet>
+          <AssociationSet Name="FK__lesson__instruct__5812160E" Association="horseClubEFModel.FK__lesson__instruct__5812160E">
+            <End Role="worker" EntitySet="workers" />
+            <End Role="lesson" EntitySet="lessons" />
+          </AssociationSet>
+          <AssociationSet Name="FK__lesson__rider_id__09A971A2" Association="horseClubEFModel.FK__lesson__rider_id__09A971A2">
+            <End Role="rider" EntitySet="riders" />
+            <End Role="lesson" EntitySet="lessons" />
+          </AssociationSet>
+          <AssociationSet Name="FK__notificat__lesso__02FC7413" Association="horseClubEFModel.FK__notificat__lesso__02FC7413">
+            <End Role="lesson" EntitySet="lessons" />
+            <End Role="notification" EntitySet="notifications" />
+          </AssociationSet>
+          <EntitySet Name="instructor_feedback" EntityType="horseClubEFModel.instructor_feedback" />
+          <EntitySet Name="rider_feedback" EntityType="horseClubEFModel.rider_feedback" />
+          <AssociationSet Name="FK__instructo__lesso__05D8E0BE" Association="horseClubEFModel.FK__instructo__lesso__05D8E0BE">
+            <End Role="lesson" EntitySet="lessons" />
+            <End Role="instructor_feedback" EntitySet="instructor_feedback" />
+          </AssociationSet>
+          <AssociationSet Name="FK__rider_fee__lesso__06CD04F7" Association="horseClubEFModel.FK__rider_fee__lesso__06CD04F7">
+            <End Role="lesson" EntitySet="lessons" />
+            <End Role="rider_feedback" EntitySet="rider_feedback" />
+          </AssociationSet>
+          <EntitySet Name="match_criteria" EntityType="horseClubEFModel.match_criteria" />
+          </EntityContainer>
+        <Association Name="FK__rider__instructo__34C8D9D1">
+          <End Type="horseClubEFModel.worker" Role="worker" Multiplicity="0..1" />
+          <End Type="horseClubEFModel.rider" Role="rider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="worker">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="rider">
+              <PropertyRef Name="instructor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="regular_lesson">
+          <Key>
+            <PropertyRef Name="lesson_id" />
+          </Key>
+          <Property Name="lesson_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="day" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="start_time" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="end_time" Type="Time" Precision="7" />
+          <Property Name="lesson_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="Int32" />
+          <Property Name="funding_source" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="rider_id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="rider" Relationship="horseClubEFModel.FK__regular_l__rider__5EBF139D" FromRole="regular_lesson" ToRole="rider" />
+        </EntityType>
+        <Association Name="FK__regular_l__rider__5EBF139D">
+          <End Type="horseClubEFModel.rider" Role="rider" Multiplicity="1" />
+          <End Type="horseClubEFModel.regular_lesson" Role="regular_lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rider">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="regular_lesson">
+              <PropertyRef Name="rider_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="chat">
+          <Key>
+            <PropertyRef Name="chat_num" />
+          </Key>
+          <Property Name="chat_num" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dateTime" Type="DateTime" Precision="3" />
+          <Property Name="last_message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="user_id1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="user_id2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="dateStr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="timeStr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="user" Relationship="horseClubEFModel.FK__chat__user_id1__73BA3083" FromRole="chat" ToRole="user" />
+          <NavigationProperty Name="user1" Relationship="horseClubEFModel.FK__chat__user_id2__72C60C4A" FromRole="chat" ToRole="user" />
+          <Property Name="last_message_sent_by" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="first_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="last_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="gender" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="date_of_birth" Type="DateTime" Precision="0" />
+          <Property Name="phone_number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="isAllowed" Type="Boolean" Nullable="false" />
+          <Property Name="user_type" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="token" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="profileImg" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="chats" Relationship="horseClubEFModel.FK__chat__user_id1__73BA3083" FromRole="user" ToRole="chat" />
+          <NavigationProperty Name="chats1" Relationship="horseClubEFModel.FK__chat__user_id2__72C60C4A" FromRole="user" ToRole="chat" />
+          <NavigationProperty Name="rider" Relationship="horseClubEFModel.FK__riders__id__22AA2996" FromRole="user" ToRole="rider" />
+          <NavigationProperty Name="worker" Relationship="horseClubEFModel.FK__workers__id__2A4B4B5E" FromRole="user" ToRole="worker" />
+          <NavigationProperty Name="notifications" Relationship="horseClubEFModel.FK__notificat__user___02084FDA" FromRole="user" ToRole="notification" />
+        </EntityType>
+        <Association Name="FK__chat__user_id1__73BA3083">
+          <End Type="horseClubEFModel.user" Role="user" Multiplicity="0..1" />
+          <End Type="horseClubEFModel.chat" Role="chat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="chat">
+              <PropertyRef Name="user_id1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__chat__user_id2__72C60C4A">
+          <End Type="horseClubEFModel.user" Role="user" Multiplicity="0..1" />
+          <End Type="horseClubEFModel.chat" Role="chat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="chat">
+              <PropertyRef Name="user_id2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__riders__id__22AA2996">
+          <End Type="horseClubEFModel.user" Role="user" Multiplicity="1" />
+          <End Type="horseClubEFModel.rider" Role="rider" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="rider">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__workers__id__2A4B4B5E">
+          <End Type="horseClubEFModel.user" Role="user" Multiplicity="1" />
+          <End Type="horseClubEFModel.worker" Role="worker" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="worker">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="notification">
+          <Key>
+            <PropertyRef Name="notification_id" />
+          </Key>
+          <Property Name="notification_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="user" Relationship="horseClubEFModel.FK__notificat__user___02084FDA" FromRole="notification" ToRole="user" />
+          <Property Name="dateStr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="timeStr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="dateTime" Type="DateTime" Precision="3" />
+          <Property Name="lesson_id" Type="Int32" />
+          <Property Name="was_sent" Type="Boolean" />
+          <NavigationProperty Name="lesson" Relationship="horseClubEFModel.FK__notificat__lesso__02FC7413" FromRole="notification" ToRole="lesson" />
+        </EntityType>
+        <Association Name="FK__notificat__user___02084FDA">
+          <End Type="horseClubEFModel.user" Role="user" Multiplicity="0..1" />
+          <End Type="horseClubEFModel.notification" Role="notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="notification">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="lesson">
+          <Key>
+            <PropertyRef Name="lesson_id" />
+          </Key>
+          <Property Name="lesson_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="start_time" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="rider_id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="end_time" Type="Time" Precision="7" />
+          <Property Name="horse_id" Type="Int32" />
+          <Property Name="instructor_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="field" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="lesson_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="Int32" />
+          <Property Name="funding_source" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="charge_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="was_present" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="comments" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="match_rank" Type="Double" />
+          <NavigationProperty Name="horse" Relationship="horseClubEFModel.FK__lesson__horse_id__571DF1D5" FromRole="lesson" ToRole="horse" />
+          <NavigationProperty Name="worker" Relationship="horseClubEFModel.FK__lesson__instruct__5812160E" FromRole="lesson" ToRole="worker" />
+          <NavigationProperty Name="rider" Relationship="horseClubEFModel.FK__lesson__rider_id__09A971A2" FromRole="lesson" ToRole="rider" />
+          <NavigationProperty Name="notifications" Relationship="horseClubEFModel.FK__notificat__lesso__02FC7413" FromRole="lesson" ToRole="notification" />
+          <NavigationProperty Name="instructor_feedback" Relationship="horseClubEFModel.FK__instructo__lesso__05D8E0BE" FromRole="lesson" ToRole="instructor_feedback" />
+          <NavigationProperty Name="rider_feedback" Relationship="horseClubEFModel.FK__rider_fee__lesso__06CD04F7" FromRole="lesson" ToRole="rider_feedback" />
+        </EntityType>
+        <Association Name="FK__lesson__horse_id__571DF1D5">
+          <End Type="horseClubEFModel.horse" Role="horse" Multiplicity="0..1" />
+          <End Type="horseClubEFModel.lesson" Role="lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="horse">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="lesson">
+              <PropertyRef Name="horse_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__lesson__instruct__5812160E">
+          <End Type="horseClubEFModel.worker" Role="worker" Multiplicity="0..1" />
+          <End Type="horseClubEFModel.lesson" Role="lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="worker">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="lesson">
+              <PropertyRef Name="instructor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__lesson__rider_id__09A971A2">
+          <End Type="horseClubEFModel.rider" Role="rider" Multiplicity="1" />
+          <End Type="horseClubEFModel.lesson" Role="lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rider">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="lesson">
+              <PropertyRef Name="rider_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__notificat__lesso__02FC7413">
+          <End Type="horseClubEFModel.lesson" Role="lesson" Multiplicity="0..1" />
+          <End Type="horseClubEFModel.notification" Role="notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lesson">
+              <PropertyRef Name="lesson_id" />
+            </Principal>
+            <Dependent Role="notification">
+              <PropertyRef Name="lesson_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="instructor_feedback">
+          <Key>
+            <PropertyRef Name="feedback_id" />
+          </Key>
+          <Property Name="feedback_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="lesson_id" Type="Int32" />
+          <Property Name="q1" Type="Int32" />
+          <Property Name="q2" Type="Int32" />
+          <Property Name="q3" Type="Int32" />
+          <Property Name="q4" Type="Int32" />
+          <Property Name="score" Type="Double" />
+          <NavigationProperty Name="lesson" Relationship="horseClubEFModel.FK__instructo__lesso__05D8E0BE" FromRole="instructor_feedback" ToRole="lesson" />
+        </EntityType>
+        <EntityType Name="rider_feedback">
+          <Key>
+            <PropertyRef Name="feedback_id" />
+          </Key>
+          <Property Name="feedback_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="lesson_id" Type="Int32" />
+          <Property Name="q1" Type="Int32" />
+          <Property Name="q2" Type="Int32" />
+          <Property Name="q3" Type="Int32" />
+          <Property Name="q4" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="lesson" Relationship="horseClubEFModel.FK__rider_fee__lesso__06CD04F7" FromRole="rider_feedback" ToRole="lesson" />
+        </EntityType>
+        <Association Name="FK__instructo__lesso__05D8E0BE">
+          <End Type="horseClubEFModel.lesson" Role="lesson" Multiplicity="0..1" />
+          <End Type="horseClubEFModel.instructor_feedback" Role="instructor_feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lesson">
+              <PropertyRef Name="lesson_id" />
+            </Principal>
+            <Dependent Role="instructor_feedback">
+              <PropertyRef Name="lesson_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__rider_fee__lesso__06CD04F7">
+          <End Type="horseClubEFModel.lesson" Role="lesson" Multiplicity="0..1" />
+          <End Type="horseClubEFModel.rider_feedback" Role="rider_feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lesson">
+              <PropertyRef Name="lesson_id" />
+            </Principal>
+            <Dependent Role="rider_feedback">
+              <PropertyRef Name="lesson_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="match_criteria">
+          <Key>
+            <PropertyRef Name="criterion_id" />
+          </Key>
+          <Property Name="criterion_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="criterion_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="last_update" Type="DateTime" Precision="3" />
+          <Property Name="criterion_weight" Type="Double" />
+          <Property Name="criterion_description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="min_weight" Type="Double" />
+          <Property Name="max_weight" Type="Double" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="horseClubEFModelStoreContainer" CdmEntityContainer="horseClubDbContext">
+          <EntitySetMapping Name="horses">
+            <EntityTypeMapping TypeName="horseClubEFModel.horse">
+              <MappingFragment StoreEntitySet="horse">
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="is_qualified" ColumnName="is_qualified" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="size" ColumnName="size" />
+                <ScalarProperty Name="temper" ColumnName="temper" />
+                <ScalarProperty Name="required_rank" ColumnName="required_rank" />
+                <ScalarProperty Name="max_weight" ColumnName="max_weight" />
+                <ScalarProperty Name="min_weight" ColumnName="min_weight" />
+                <ScalarProperty Name="max_height" ColumnName="max_height" />
+                <ScalarProperty Name="min_height" ColumnName="min_height" />
+                <ScalarProperty Name="therapeutic_riding" ColumnName="therapeutic_riding" />
+                <ScalarProperty Name="can_jump" ColumnName="can_jump" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="parents">
+            <EntityTypeMapping TypeName="horseClubEFModel.parent">
+              <MappingFragment StoreEntitySet="parent">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="riders">
+            <EntityTypeMapping TypeName="horseClubEFModel.rider">
+              <MappingFragment StoreEntitySet="rider">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="height" ColumnName="height" />
+                <ScalarProperty Name="riding_rank" ColumnName="riding_rank" />
+                <ScalarProperty Name="riding_type" ColumnName="riding_type" />
+                <ScalarProperty Name="starting_date" ColumnName="starting_date" />
+                <ScalarProperty Name="instructor_id" ColumnName="instructor_id" />
+                <ScalarProperty Name="horse_id" ColumnName="horse_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="trial_lesson">
+            <EntityTypeMapping TypeName="horseClubEFModel.trial_lesson">
+              <MappingFragment StoreEntitySet="trial_lesson">
+                <ScalarProperty Name="lesson_type" ColumnName="lesson_type" />
+                <ScalarProperty Name="end_time" ColumnName="end_time" />
+                <ScalarProperty Name="start_time" ColumnName="start_time" />
+                <ScalarProperty Name="lesson_id" ColumnName="lesson_id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="visitor_id" ColumnName="visitor_id" />
+                <ScalarProperty Name="horse_id" ColumnName="horse_id" />
+                <ScalarProperty Name="instructor_id" ColumnName="instructor_id" />
+                <ScalarProperty Name="field" ColumnName="field" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="funding_source" ColumnName="funding_source" />
+                <ScalarProperty Name="charge_type" ColumnName="charge_type" />
+                <ScalarProperty Name="was_present" ColumnName="was_present" />
+                <ScalarProperty Name="comments" ColumnName="comments" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="visitors">
+            <EntityTypeMapping TypeName="horseClubEFModel.visitor">
+              <MappingFragment StoreEntitySet="visitor">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="date_of_birth" ColumnName="date_of_birth" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="height" ColumnName="height" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="comments" ColumnName="comments" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="workers">
+            <EntityTypeMapping TypeName="horseClubEFModel.worker">
+              <MappingFragment StoreEntitySet="worker">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="starting_date" ColumnName="starting_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="parent_of_rider" TypeName="horseClubEFModel.parent_of_rider" StoreEntitySet="parent_of_rider">
+            <EndProperty Name="parent">
+              <ScalarProperty Name="id" ColumnName="parent_id" />
+            </EndProperty>
+            <EndProperty Name="rider">
+              <ScalarProperty Name="id" ColumnName="rider_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="regular_lesson">
+            <EntityTypeMapping TypeName="horseClubEFModel.regular_lesson">
+              <MappingFragment StoreEntitySet="regular_lesson">
+                <ScalarProperty Name="rider_id" ColumnName="rider_id" />
+                <ScalarProperty Name="funding_source" ColumnName="funding_source" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="lesson_type" ColumnName="lesson_type" />
+                <ScalarProperty Name="end_time" ColumnName="end_time" />
+                <ScalarProperty Name="start_time" ColumnName="start_time" />
+                <ScalarProperty Name="day" ColumnName="day" />
+                <ScalarProperty Name="lesson_id" ColumnName="lesson_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="chats">
+            <EntityTypeMapping TypeName="horseClubEFModel.chat">
+              <MappingFragment StoreEntitySet="chat">
+                <ScalarProperty Name="last_message_sent_by" ColumnName="last_message_sent_by" />
+                <ScalarProperty Name="timeStr" ColumnName="timeStr" />
+                <ScalarProperty Name="dateStr" ColumnName="dateStr" />
+                <ScalarProperty Name="user_id2" ColumnName="user_id2" />
+                <ScalarProperty Name="user_id1" ColumnName="user_id1" />
+                <ScalarProperty Name="last_message" ColumnName="last_message" />
+                <ScalarProperty Name="dateTime" ColumnName="dateTime" />
+                <ScalarProperty Name="chat_num" ColumnName="chat_num" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="horseClubEFModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="profileImg" ColumnName="profileImg" />
+                <ScalarProperty Name="token" ColumnName="token" />
+                <ScalarProperty Name="user_type" ColumnName="user_type" />
+                <ScalarProperty Name="isAllowed" ColumnName="isAllowed" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+                <ScalarProperty Name="date_of_birth" ColumnName="date_of_birth" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="notifications">
+            <EntityTypeMapping TypeName="horseClubEFModel.notification">
+              <MappingFragment StoreEntitySet="notification">
+                <ScalarProperty Name="was_sent" ColumnName="was_sent" />
+                <ScalarProperty Name="lesson_id" ColumnName="lesson_id" />
+                <ScalarProperty Name="dateTime" ColumnName="dateTime" />
+                <ScalarProperty Name="timeStr" ColumnName="timeStr" />
+                <ScalarProperty Name="dateStr" ColumnName="dateStr" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="notification_id" ColumnName="notification_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="lessons">
+            <EntityTypeMapping TypeName="horseClubEFModel.lesson">
+              <MappingFragment StoreEntitySet="lesson">
+                <ScalarProperty Name="match_rank" ColumnName="match_rank" />
+                <ScalarProperty Name="comments" ColumnName="comments" />
+                <ScalarProperty Name="was_present" ColumnName="was_present" />
+                <ScalarProperty Name="charge_type" ColumnName="charge_type" />
+                <ScalarProperty Name="funding_source" ColumnName="funding_source" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="lesson_type" ColumnName="lesson_type" />
+                <ScalarProperty Name="field" ColumnName="field" />
+                <ScalarProperty Name="instructor_id" ColumnName="instructor_id" />
+                <ScalarProperty Name="horse_id" ColumnName="horse_id" />
+                <ScalarProperty Name="end_time" ColumnName="end_time" />
+                <ScalarProperty Name="rider_id" ColumnName="rider_id" />
+                <ScalarProperty Name="start_time" ColumnName="start_time" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="lesson_id" ColumnName="lesson_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="instructor_feedback">
+            <EntityTypeMapping TypeName="horseClubEFModel.instructor_feedback">
+              <MappingFragment StoreEntitySet="instructor_feedback">
+                <ScalarProperty Name="score" ColumnName="score" />
+                <ScalarProperty Name="q4" ColumnName="q4" />
+                <ScalarProperty Name="q3" ColumnName="q3" />
+                <ScalarProperty Name="q2" ColumnName="q2" />
+                <ScalarProperty Name="q1" ColumnName="q1" />
+                <ScalarProperty Name="lesson_id" ColumnName="lesson_id" />
+                <ScalarProperty Name="feedback_id" ColumnName="feedback_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rider_feedback">
+            <EntityTypeMapping TypeName="horseClubEFModel.rider_feedback">
+              <MappingFragment StoreEntitySet="rider_feedback">
+                <ScalarProperty Name="q4" ColumnName="q4" />
+                <ScalarProperty Name="q3" ColumnName="q3" />
+                <ScalarProperty Name="q2" ColumnName="q2" />
+                <ScalarProperty Name="q1" ColumnName="q1" />
+                <ScalarProperty Name="lesson_id" ColumnName="lesson_id" />
+                <ScalarProperty Name="feedback_id" ColumnName="feedback_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="match_criteria">
+            <EntityTypeMapping TypeName="horseClubEFModel.match_criteria">
+              <MappingFragment StoreEntitySet="match_criteria">
+                <ScalarProperty Name="max_weight" ColumnName="max_weight" />
+                <ScalarProperty Name="min_weight" ColumnName="min_weight" />
+                <ScalarProperty Name="criterion_description" ColumnName="criterion_description" />
+                <ScalarProperty Name="criterion_weight" ColumnName="criterion_weight" />
+                <ScalarProperty Name="last_update" ColumnName="last_update" />
+                <ScalarProperty Name="criterion_name" ColumnName="criterion_name" />
+                <ScalarProperty Name="criterion_id" ColumnName="criterion_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

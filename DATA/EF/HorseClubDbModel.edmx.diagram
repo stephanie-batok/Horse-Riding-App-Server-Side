@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3da3dac4b60e49239e026887fa0222f0" Name="Diagram1" ZoomLevel="78">
+        <EntityTypeShape EntityType="horseClubEFModel.horse" Width="1.5" PointX="3.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="horseClubEFModel.parent" Width="1.5" PointX="3.75" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="horseClubEFModel.rider" Width="1.5" PointX="6" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="horseClubEFModel.trial_lesson" Width="1.5" PointX="5.25" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="horseClubEFModel.visitor" Width="1.5" PointX="3" PointY="21.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="horseClubEFModel.worker" Width="1.5" PointX="2" PointY="14.125" IsExpanded="true" />
+        <AssociationConnector Association="horseClubEFModel.FK__rider__horse_id__33D4B598" ManuallyRouted="false" />
+        <AssociationConnector Association="horseClubEFModel.FK__trial_les__horse__25869641" ManuallyRouted="false" />
+        <AssociationConnector Association="horseClubEFModel.FK__trial_les__instr__267ABA7A" ManuallyRouted="false" />
+        <AssociationConnector Association="horseClubEFModel.FK__trial_les__visit__276EDEB3" ManuallyRouted="false" />
+        <AssociationConnector Association="horseClubEFModel.parent_of_rider" ManuallyRouted="false" />
+        <AssociationConnector Association="horseClubEFModel.FK__rider__instructo__34C8D9D1" ManuallyRouted="false" >
+        </AssociationConnector>
+        <EntityTypeShape EntityType="horseClubEFModel.regular_lesson" Width="1.5" PointX="8.25" PointY="12.75" />
+        <AssociationConnector Association="horseClubEFModel.FK__regular_l__rider__5EBF139D" />
+        <EntityTypeShape EntityType="horseClubEFModel.chat" Width="1.5" PointX="3" PointY="7.75" />
+        <EntityTypeShape EntityType="horseClubEFModel.user" Width="1.5" PointX="0.75" PointY="9.5" />
+        <AssociationConnector Association="horseClubEFModel.FK__chat__user_id1__73BA3083" />
+        <AssociationConnector Association="horseClubEFModel.FK__chat__user_id2__72C60C4A" />
+        <AssociationConnector Association="horseClubEFModel.FK__riders__id__22AA2996" />
+        <AssociationConnector Association="horseClubEFModel.FK__workers__id__2A4B4B5E" />
+        <EntityTypeShape EntityType="horseClubEFModel.notification" Width="1.5" PointX="3" PointY="25.625" />
+        <AssociationConnector Association="horseClubEFModel.FK__notificat__user___02084FDA" />
+        <EntityTypeShape EntityType="horseClubEFModel.lesson" Width="1.5" PointX="8.25" PointY="6.5" />
+        <AssociationConnector Association="horseClubEFModel.FK__lesson__horse_id__571DF1D5" />
+        <AssociationConnector Association="horseClubEFModel.FK__lesson__instruct__5812160E" />
+        <AssociationConnector Association="horseClubEFModel.FK__lesson__rider_id__09A971A2" />
+        <AssociationConnector Association="horseClubEFModel.FK__notificat__lesso__02FC7413" />
+        <EntityTypeShape EntityType="horseClubEFModel.instructor_feedback" Width="1.5" PointX="10.5" PointY="9.25" />
+        <EntityTypeShape EntityType="horseClubEFModel.rider_feedback" Width="1.5" PointX="10.5" PointY="6.25" />
+        <AssociationConnector Association="horseClubEFModel.FK__instructo__lesso__05D8E0BE" />
+        <AssociationConnector Association="horseClubEFModel.FK__rider_fee__lesso__06CD04F7" />
+        <EntityTypeShape EntityType="horseClubEFModel.match_criteria" Width="1.5" PointX="0.75" PointY="0.75" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
